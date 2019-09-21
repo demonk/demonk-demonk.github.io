@@ -17,7 +17,7 @@
 <meta property="og:description" content="最近在完善创建jvm的过程，基本上与上次写的《ANDROID上创建DALVIK虚拟机与加载类》一致，此前在测试dalvik及art模式下的时候都没问题的，但最近在使用art模式下创建jvm时去遇到了问题。 使用dlopen打开了libart.so的句柄后，能正常获取到JNI_CreateJavaVM方法，但就是创建不了虚拟机，logcat中提示“InitializeSignalChain is n">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://nexus.demonk.cn/uploads/2015/08/Screenshot-from-2015-08-14-150730.png">
-<meta property="og:updated_time" content="2019-09-21T12:25:32.501Z">
+<meta property="og:updated_time" content="2019-09-21T12:59:05.288Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="art下创建虚拟机的问题补充">
 <meta name="twitter:description" content="最近在完善创建jvm的过程，基本上与上次写的《ANDROID上创建DALVIK虚拟机与加载类》一致，此前在测试dalvik及art模式下的时候都没问题的，但最近在使用art模式下创建jvm时去遇到了问题。 使用dlopen打开了libart.so的句柄后，能正常获取到JNI_CreateJavaVM方法，但就是创建不了虚拟机，logcat中提示“InitializeSignalChain is n">
@@ -172,7 +172,7 @@
 <p>其中version-srcipt.txt是从sigchainlib模块中拿的。然后直接</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mmm art/jvm_test/</span><br></pre></td></tr></table></figure>
 <p>后就生成了jvm可执行文件了，放到手机上运行，终于没了错误提示，能够正常创建虚拟机了。</p>
-<p><a href="http://www.demonk.cn/?attachment_id=529" target="_blank" rel="noopener">CreateVm_native.tar</a></p>
+<p><a href="/uploads/2015/08/CreateVm_native.tar.bz2">CreateVm_native.tar</a></p>
 
       
 

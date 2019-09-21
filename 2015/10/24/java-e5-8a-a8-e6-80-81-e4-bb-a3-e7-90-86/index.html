@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://nexus.demonk.cn/uploads/2015/10/Screenshot-from-2016-03-04-17-58-38-1024x329.png">
 <meta property="og:image" content="http://nexus.demonk.cn/uploads/2015/10/ProxyClassFactory.png">
 <meta property="og:image" content="http://nexus.demonk.cn/uploads/2015/10/Process.png">
-<meta property="og:updated_time" content="2019-09-21T12:25:32.439Z">
+<meta property="og:updated_time" content="2019-09-21T12:59:25.984Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 动态代理">
 <meta name="twitter:description" content="诚然，java并不是一门十分死板的语言，反射的功能给开发者们带来了不少的便利（虽然反过来也对代码安全性本身有影响），最近在网上逛的时候意外发现了java除了能进行一般的反射调用外，也支持对接口对象方法的扩展，这种技术官方就叫“动态代理”。虽然这东西已经是很久以前的技术了，但我居然到最近才了解到，惭愧。 所谓的动态代理，说白了一点，就是通过自定义的一个代理类，对原对象的接口方法进行扩展，以达到在运行">
@@ -206,7 +206,7 @@
 <p><a href="/uploads/2015/10/Process.png"><img src="/uploads/2015/10/Process.png" alt="Process"></a></p>
 <p>==============================================================</p>
 <p>纵观整个过程，其实动态代理最重要的一点技术就是类的动态生成与加载，这一特性的出现并非有心故意弄出来的，而是基于Java本身语言的特性设立的。对于jvm而言，它认为这是不是一个类，并不是看你是不是真的创建好一个实在的文件等它去读才可以，它认识的只是编译好的二进制流，在java开发中，找类这一过程实际上是开放的，无论是从jar中，还是android的dex中，实际上都是寻找class的二进制数据，喂给它规范的二进制数据，它才不管你从哪里来。通过临时创建一个实际上并不存在的类，用来桥接我们的调用，这就是代理的作用，说明白了，其实也就那么点事。</p>
-<p><a href="http://www.demonk.cn/?attachment_id=563" target="_blank" rel="noopener">ProxyTest.tar</a><br><a href="/uploads/2015/10/WeakCache.doc">WeakCache</a><br><a href="/uploads/2015/10/proxy.eap">proxy</a></p>
+<p><a href="/uploads/2015/10/ProxyTest.tar.gz">ProxyTest.tar</a><br><a href="/uploads/2015/10/WeakCache.doc">WeakCache</a><br><a href="/uploads/2015/10/proxy.eap">proxy</a></p>
 
       
 
