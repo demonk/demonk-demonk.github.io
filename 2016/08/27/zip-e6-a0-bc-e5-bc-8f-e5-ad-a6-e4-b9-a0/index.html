@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://nexus.demonk.cn/uploads/2016/08/Screenshot-from-2016-11-11-17-05-13.png">
 <meta property="og:image" content="http://nexus.demonk.cn/uploads/2016/08/Screenshot-from-2016-11-11-17-07-21.png">
 <meta property="og:image" content="http://nexus.demonk.cn/uploads/2016/08/Screenshot-from-2016-11-11-17-27-29.png">
-<meta property="og:updated_time" content="2019-09-21T12:25:32.447Z">
+<meta property="og:updated_time" content="2019-09-21T13:15:48.444Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Zip格式学习">
 <meta name="twitter:description" content="zip是我们日常生活中很经常用到的一种归档压缩格式/工具，这是Phil Katz在1989年的一种压缩格式，至今经过多种改良，基本的格式规范依然生效，今天我就PKZip总结一下ZIP的格式及各字段含义。 一般来说，zip的格式由三部分组成  File Entry：压缩文件内容源数据 Central Directory：目录源数据，用于描述File Entry中的文件，放于文件尾部，方便以后添加新数">
@@ -168,7 +168,7 @@
 </ul>
 <a id="more"></a>
 <p>总体的文件结构如图（from wiki ）<br><a href="https://upload.wikimedia.org/wikipedia/commons/6/63/ZIP-64_Internal_Layout.svg" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/6/63/ZIP-64_Internal_Layout.svg" alt></a></p>
-<p>以下分开几个部分描述，以下都基于010editor，以及<a href="http://www.demonk.cn/?attachment_id=956" target="_blank" rel="noopener">sample</a>，zip文件的内容如下</p>
+<p>以下分开几个部分描述，以下都基于010editor，以及<a href="/uploads/2016/08/dir2.zip">sample</a>，zip文件的内容如下</p>
 <blockquote>
 <p>.<br>   ├── zipentry<br>   │   ├── file_2.txt<br>   │   └── file_3.txt<br>   └── file_1.txt</p>
 </blockquote>

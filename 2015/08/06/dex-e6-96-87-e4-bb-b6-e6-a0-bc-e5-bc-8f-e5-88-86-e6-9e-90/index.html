@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://nexus.demonk.cn/uploads/2015/08/Screenshot-from-2015-08-06-225310.png">
 <meta property="og:image" content="http://nexus.demonk.cn/uploads/2015/08/DEX.png">
 <meta property="og:image" content="http://nexus.demonk.cn/uploads/2015/08/Screenshot-from-2015-08-06-190019.png">
-<meta property="og:updated_time" content="2019-09-21T13:01:45.719Z">
+<meta property="og:updated_time" content="2019-09-21T13:10:44.439Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DEX文件格式分析">
 <meta name="twitter:description" content="Dex是android上的可执行文件类型，其包含了几乎所有代码及变量的内容，正确使用并辨识DEX文件内的内容对分析问题及使用一些较为灵活的操作方式有很大的帮助。 半成品 DEX格式定义在dalvik/libdex/DexFile.h的struct DexFile中，其由若干个部分的结构体组成，除了DexHeader文件头指定了dex文件的一些属性，包括签名，文件长度，各数据区的数目及偏移值等等外，">
@@ -195,8 +195,8 @@
 <p><a href="http://blog.csdn.net/new_abc/article/details/36412081" target="_blank" rel="noopener">http://blog.csdn.net/new_abc/article/details/36412081</a><br><a href="http://www.cnblogs.com/santry/archive/2011/10/24/2222900.html" target="_blank" rel="noopener">http://www.cnblogs.com/santry/archive/2011/10/24/2222900.html</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/dalvik/libdex/DexClass.h</span><br><span class="line">/dalvik/libdex/DexFile.h</span><br><span class="line">/dalvik/vm/oo/Class.cpp</span><br><span class="line">/dalvik/vm/oo/Object.h</span><br><span class="line">/dalvik/vm/native/java_lang_Class.cpp</span><br><span class="line">/dalvik/vm/native/InternalNative.cpp</span><br><span class="line">/dalvik/vm/native/dalvik_system_DexFile.cpp</span><br></pre></td></tr></table></figure>
 <p>=================================================================<br><br><strong>使用010Editor分析DEX</strong></p>
-<p>010Editor支持直接查看二进制文件并进行分析，<a bref="http://www.sweetscape.com/010editor/">下载地址</a></p>
-<p>其支持使用脚本模板文件来分析二进制文件，<a href="http://www.demonk.cn/?attachment_id=451" target="_blank" rel="noopener">模板下载</a></p>
+<p>010Editor支持直接查看二进制文件并进行分析，<a href="http://www.sweetscape.com/010editor/" target="_blank" rel="noopener">下载地址</a></p>
+<p>其支持使用脚本模板文件来分析二进制文件，<a href="/uploads/2015/08/Template.7z">模板下载</a></p>
 <p>在打开二进制文件后，就可以点击Template -&gt; open Template 打开一个模板文件，如附件中的DEXTEMPLATE，打开后就可以点击 Template -&gt; run Template来执行模板脚本，模板就会根据当前打开的二进制文件进行分析，然后得出结果</p>
 <p><a href="/uploads/2015/08/Screenshot-from-2015-08-06-190019.png"><img src="/uploads/2015/08/Screenshot-from-2015-08-06-190019.png" alt="Screenshot from 2015-08-06 19:00:19"></a></p>
 <p><a href="/uploads/2015/08/Header.wps">Header</a></p>

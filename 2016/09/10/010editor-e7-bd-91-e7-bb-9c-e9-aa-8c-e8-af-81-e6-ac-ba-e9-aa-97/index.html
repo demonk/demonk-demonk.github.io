@@ -25,7 +25,7 @@
 <meta property="og:image" content="http://nexus.demonk.cn/uploads/2016/09/Screenshot-from-2016-11-10-18-28-35.png">
 <meta property="og:image" content="http://nexus.demonk.cn/uploads/2016/09/QQ图片20160910183119.gif">
 <meta property="og:image" content="http://nexus.demonk.cn/uploads/2016/09/Screenshot-from-2016-11-10-18-30-46.png">
-<meta property="og:updated_time" content="2019-09-21T12:25:32.515Z">
+<meta property="og:updated_time" content="2019-09-21T13:14:08.140Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="010editor网络验证欺骗">
 <meta name="twitter:description" content="010editor是一款十六进制的编辑器，小生在此前分析apk和dex时有幸试用一番后简直欲罢不能，它的强大之处除了能以十六进制打开所有看得见看不见的文件外，更牛逼的是能支持模板和脚本操作，像之前的Dex文件格式分析里的说的，能把dex以dex的格式逐一分析出来，dex的格式可谓一览无遗，方便至极，更可自定义格式模板和解析脚本，分享他人。">
@@ -166,7 +166,7 @@
 <p><a href="/uploads/2015/08/Screenshot-from-2015-08-06-190019.png"> <img src="/uploads/2015/08/Screenshot-from-2015-08-06-190019.png" alt="Screenshot from 2015-08-06 19:00:19"> </a></p>
 <p>当然，天下没有免费的午餐，此等神器新用户购买得要$49.96……说到这里，就已经不是钱不钱的问题了（严肃脸），得考虑实在困难的用户嘛（linux上实在找不到破解和可用的序列号了）,遂想免费用的话得想点办法。</p>
 <p>以下以7.0.2为例。</p>
-<p>如果没注册，在进入010editor的时候就会要求输入序列号（用户名+注册号），这两个号码其实很好找，网上都有提供，还有<a href="http://www.demonk.cn/?attachment_id=936" target="_blank" rel="noopener">注册机</a>提供，这一步倒不是什么问题，问题是它要求网络验证=。=，这踏马就有点尴尬了。按以往使用盗版软件的经验来说，对付这种网络验证的注册建一个假的server欺骗它就可以了，搭建server不算难，但首先需要获取到注册的请求和响应格式。</p>
+<p>如果没注册，在进入010editor的时候就会要求输入序列号（用户名+注册号），这两个号码其实很好找，网上都有提供，还有<a href="/uploads/2016/09/keygen.tar.gz">注册机</a>提供，这一步倒不是什么问题，问题是它要求网络验证=。=，这踏马就有点尴尬了。按以往使用盗版软件的经验来说，对付这种网络验证的注册建一个假的server欺骗它就可以了，搭建server不算难，但首先需要获取到注册的请求和响应格式。</p>
 <p><a href="/uploads/2016/09/Screenshot-from-2016-09-10-16-30-44.png"> <img src="/uploads/2016/09/Screenshot-from-2016-09-10-16-30-44.png" alt="screenshot-from-2016-09-10-16-30-44"> </a></p>
 <p>我决定先从捉包下手，打开wireshark，设置捕获的过滤条件为过滤<a href="http://www.sweetscape.com" target="_blank" rel="noopener">www.sweetscape.com</a>(总不会验证还有别的域名吧，猜的），然后start<br><a href="/uploads/2016/09/Screenshot-from-2016-11-10-17-44-12.png"> <img src="/uploads/2016/09/Screenshot-from-2016-11-10-17-44-12.png" alt="screenshot-from-2016-11-10-17-44-12"> </a></p>
 <p>打开010editor的注册页，填入注册信息，然后点“Check License”，查看捉到的包。<br><a href="/uploads/2016/09/Screenshot-from-2016-11-10-18-16-36.png"> <img src="/uploads/2016/09/Screenshot-from-2016-11-10-18-16-36.png" alt="screenshot-from-2016-11-10-18-16-36"> </a></p>
