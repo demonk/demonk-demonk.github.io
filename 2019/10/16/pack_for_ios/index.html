@@ -16,21 +16,21 @@
 <meta property="og:site_name" content="-NULL-">
 <meta property="og:description" content="0x0 前言我所在的项目里, ios的工程一直都是使用纯OC来编写的, 以前一直都相安无事. 最近来了一位新同学, 一边感叹我们为什么不切换使用swift, 一边给工程里引了一些开源的组件, 开始我其实也没怎么在意, 不就混编嘛, 在本身开发调试运行一直都很顺利, 仿佛一切都没有发生过一样.  直到把工程放到Jenkins中编译, 问题才开始多起来.">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/pack_for_ios/1.png">
-<meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/pack_for_ios/2.png">
-<meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/pack_for_ios/3.png">
-<meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/pack_for_ios/4.png">
-<meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/pack_for_ios/6.png">
-<meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/pack_for_ios/7.png">
-<meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/pack_for_ios/8.png">
-<meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/pack_for_ios/4.png">
-<meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/pack_for_ios/9.png">
-<meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/pack_for_ios/10.png">
-<meta property="og:updated_time" content="2019-10-16T10:34:57.540Z">
+<meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/1.png">
+<meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/2.png">
+<meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/3.png">
+<meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/4.png">
+<meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/6.png">
+<meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/7.png">
+<meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/8.png">
+<meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/4.png">
+<meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/9.png">
+<meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/10.png">
+<meta property="og:updated_time" content="2019-10-16T10:51:15.170Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="花式解决iOS持续集成的坑">
 <meta name="twitter:description" content="0x0 前言我所在的项目里, ios的工程一直都是使用纯OC来编写的, 以前一直都相安无事. 最近来了一位新同学, 一边感叹我们为什么不切换使用swift, 一边给工程里引了一些开源的组件, 开始我其实也没怎么在意, 不就混编嘛, 在本身开发调试运行一直都很顺利, 仿佛一切都没有发生过一样.  直到把工程放到Jenkins中编译, 问题才开始多起来.">
-<meta name="twitter:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/pack_for_ios/1.png">
+<meta name="twitter:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/1.png">
   
     <link rel="alternative" href="/atom.xml" title="-NULL-" type="application/atom+xml">
   
@@ -175,13 +175,13 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcrun altool --upload-app -type ios  -u &#123;account&#125; -p &#123;password&#125; --file &#123;ipa路径&#125;</span><br></pre></td></tr></table></figure>
 <p>然后就跟Application Loader一样等待上传即可, 正常来说很快就能出来结果. </p>
 <p>事实上也还真的很快就有结果, 不过是失败结果.</p>
-<p><img src="./pack_for_ios/1.png" alt></p>
+<img src="/2019/10/16/pack_for_ios/1.png">
 <blockquote>
 <p>The binary file ‘xxxx.app/libswiftRemoteMirror.dylib’ is not permitted. Your app can’t contain standalone executables or libraries, other than a valid CFBundleExecutable of supported bundles.</p>
 </blockquote>
 <p>问题很明显, 包里有一个libswiftRemoteMirror.dylib的东西苹果认为不应该存在, 直接就给打回了. </p>
 <h3 id="0x112-第一次解决"><a href="#0x112-第一次解决" class="headerlink" title="0x112 第一次解决"></a>0x112 第一次解决</h3><p>把包文件下下来一看, 果然苹果诚不欺我, 果然有这么一个文件在这里</p>
-<p><img src="./pack_for_ios/2.png" alt></p>
+<img src="/2019/10/16/pack_for_ios/2.png">
 <p>既然都提示文件多余了, 那我直接把它删除掉行不行呢? 因为构建的过程是在S平台上进行的, 我需要删除即就只能在自定义的打包脚本里删除. 由于打包脚本里是通过xcodebuild先构建出app文件,再自行压制成ipa的, 我寻思着就需要在生成app后直接删除掉包里的对应文件即可. 因为app其实也可以当成一个文件夹看, 直接使用rm命令即可</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm xxx.app/libswiftRemoteMirror.dylib</span><br></pre></td></tr></table></figure>
 <p>完事重新打包, 嗯…..文件是没了, 可包也装不上了.</p>
@@ -198,7 +198,8 @@
 </blockquote>
 <p>还是跟swift的支持库有关, 可为嘛libswiftRemoteMirror.dylib说不要了, 现在又来拒绝呢?再说这个所谓的”SwiftSupport folder”长啥样我根本没见过, 不知道正确的形态是怎么样的.</p>
 <p>一通谷歌, 有说把Build Settings里的”Always Embed Swift Standard Libraries”设置为NO, 还有的说还要把PROJECT里的同样设置设置为YES</p>
-<p><img src="./pack_for_ios/3.png" alt><br><img src="./pack_for_ios/4.png" alt></p>
+<img src="/2019/10/16/pack_for_ios/3.png">
+<img src="/2019/10/16/pack_for_ios/4.png">
 <p>可是对于我这种情况这些都不work.</p>
 <p>还有另外一种说法是使用xcodebuild的archive和exportArchive来直接导出ipa, 这种做法我感觉没毛病, 但遇到两个问题</p>
 <ol>
@@ -210,7 +211,7 @@
 <p>众所周知, 要在机器上签名, 那本地的钥匙串里需要有对应证书的私钥, 我如果能找出(或者有标识让机器找出)对应私钥在钥匙串中的位置, 那我重签就有希望了.</p>
 <h4 id="0x1151-获取证书名"><a href="#0x1151-获取证书名" class="headerlink" title="0x1151 获取证书名"></a>0x1151 获取证书名</h4><p>因为我账号已经加入到公司的开发团队里去了, 可以很方便地看到公司开发者账号的信息, 如账号的名称, TeamId等等, 而构建证书名字的信息, 有这里就已经足够了. </p>
 <p>看一下自己机器里的钥匙串, 证书名一般长这样.</p>
-<p><img src="./pack_for_ios/6.png" alt></p>
+<img src="/2019/10/16/pack_for_ios/6.png">
 <p>猜测组成的结构如下</p>
 <blockquote>
 <p>iPhone Distribution: {公司名} ({TeamId})</p>
@@ -219,7 +220,7 @@
 <p>以上是针对发布包的, 因为我只加入到了生产的团队里, 可打包平台还能打出企业包来, 当然如果没有企业包也行, 毕竟我们只是面向上线, 但如果没有企业包辅助验证, 就不知道这个方案到底可行不可行. 没办法, 还是得把企业包的证书名给获取到.</p>
 <p>由于管理企业包的账号与生产包的开发者账号是独立的, 所以我无法得知查看企业包的账号是长什么样, 所幸的是, 以前在配置企业包时, 我知道了TeamId的信息, 这么说我只需要知道对应的公司名(账号名)就可以构建出证书来了. 但根据已有信息, 我根本无法知道账号名叫啥. </p>
 <p>还好我灵机一动, 以往在测试企业包时, 经常会弹出这样子的信息</p>
-<p><img src="./pack_for_ios/7.png" alt></p>
+<img src="/2019/10/16/pack_for_ios/7.png">
 <p>这不就是对应证书的名字吗!?, 喜出望外, 这样子生产包与企业包的对应证书名我都可以构建出来了.</p>
 <h4 id="0x1152-获取授权信息"><a href="#0x1152-获取授权信息" class="headerlink" title="0x1152 获取授权信息"></a>0x1152 获取授权信息</h4><p>签名需要传入授权信息, 这个授权信息可以理解为mobileprovision里的一个段, 说是授权信息, 其实就是一些基本是包信息而已, 要从mobilieprovision里读取entitlements信息,可以使用security命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">security cms -D -i ../app.mobileprovision  &gt; entitlements_full.plist</span><br></pre></td></tr></table></figure>
@@ -239,20 +240,20 @@
 <p>执行如下命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">security find-identity -v -p codesigning</span><br></pre></td></tr></table></figure>
 <p>可以找到类似的结果</p>
-<p><img src="./pack_for_ios/8.png" alt></p>
+<img src="/2019/10/16/pack_for_ios/8.png">
 <p>从这个列表里我们可以很容易看出用用于真实签名的证书究竟是哪个(看名字), 其中前面的串就是其对应的id值了.</p>
 <p>最终使用id来替换证书名, 再执行重签就可以了.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">certifierName="029C0A39D616612820DBA9B49XXXXXXXXXXXXXXXX";</span><br><span class="line">codesign -f -s $certifierName --entitlements entitlements.plist "$&#123;DEFS_TARGET&#125;.app"</span><br></pre></td></tr></table></figure>
 <p>此时在打包平台上的重签名过程可以告一段落了. 再次上传包等待扫描结果. </p>
 <h2 id="0x12-再次打回"><a href="#0x12-再次打回" class="headerlink" title="0x12 再次打回"></a>0x12 再次打回</h2><p>此文不结束表示这问题就还没解决……是的又打回了, 又说包里没有swiftSupport的……</p>
-<p><img src="./pack_for_ios/4.png" alt></p>
+<img src="/2019/10/16/pack_for_ios/4.png">
 <p>问题又回到了原点. 看来只是单纯地针对原来的包重新签名也不能解决问题, 其根本是因为包里缺少所谓的SwiftSupport文件. </p>
 <p>那么得换种思路了, 针对原来的脚本打出来的包去做调整不行, 那能不能直接换种打包的方法.</p>
 <h3 id="0x121-脚本分析"><a href="#0x121-脚本分析" class="headerlink" title="0x121 脚本分析"></a>0x121 脚本分析</h3><p>原来使用的脚本虽然是使用xcodebuild,但并非直接输出ipa, 而是输出app, 最终通过zip直接压成ipa.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xcodebuild -workspace ../$workspacefile -scheme $buildTarget -destination $destination -configuration $build_configuration -derivedDataPath ../DerivedData  -UseModernBuildSystem=NO</span><br><span class="line">mv ./$&#123;DEFS_TARGET&#125;.app ./Payload/</span><br><span class="line">zip -9ry $&#123;DEFS_TARGET&#125;.ipa Payload/</span><br></pre></td></tr></table></figure>
 <p>其是基于app中的一个简单封装成ipa而已, 如果苹果说的所谓 SwiftSupport 是在ipa的其他地方的目录文件的话, 那这种打包方法天生就是有缺陷的, 那就只能换一种打包方法了.</p>
 <h3 id="0x122-Archive"><a href="#0x122-Archive" class="headerlink" title="0x122 Archive"></a>0x122 Archive</h3><p>Archive是Xcode里的一种打包方式, 使用archive可以直接打出一个ipa, 省去了中间的环节, 如果编译器认为是需要有SwiftSupport的话, 那使用这种方式打包就肯定会把所有想关的东西打进去.对应到命令行中, 也是使用xcodebuild来执行的.</p>
-<p><img src="./pack_for_ios/9.png" alt></p>
+<img src="/2019/10/16/pack_for_ios/9.png">
 <p>执行的命令与原来的有点类似, 只不过现在是使用archive与exportArchive模式.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xcodebuild -workspace ../$workspacefile -scheme $buildTarget -destination $destination  -configuration $build_configuration -archivePath ../ArchiveData/$&#123;DEFS_TARGET&#125;.xcarchive -UseModernBuildSystem=NO archive</span><br><span class="line"></span><br><span class="line">xcodebuild -exportArchive  -archivePath ../ArchiveData/$&#123;DEFS_TARGET&#125;.xcarchive -exportPath ../out -exportOptionsPlist ../export.plist</span><br></pre></td></tr></table></figure>
 <p>其中, export.plist其实就类似重签名过程中entitlements.plist, 我们需要的信息大概如下:</p>
@@ -262,7 +263,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">echo "&lt;plist version="1.0"&gt;&lt;dict&gt;&lt;/dict&gt;&lt;/plist&gt;"&gt;../export.plist</span><br><span class="line">/usr/libexec/PlistBuddy -c "Add :provisioningProfiles:$&#123;DEFS_BUNDLEID&#125; string $&#123;DEFS_PROFILENAME&#125;" ../export.plist</span><br><span class="line">/usr/libexec/PlistBuddy -c "Add :SigningCertificate string $&#123;certifierName&#125;" ../export.plist</span><br><span class="line">/usr/libexec/PlistBuddy -c "Add :teamId string $&#123;DEFS_TEAMID&#125;" ../export.plist</span><br><span class="line">/usr/libexec/PlistBuddy -c "Add :method string app-store" ../export.plist</span><br></pre></td></tr></table></figure>
 <p>生成文件后, 再使用上面的命令archive一个包, 最终的产物就是ipa.</p>
 <p>打出来的文件结构是这样子的, 这个包比一般的包要大上两倍多, 可以看到里面的文件结构, 包大小的增量是就是体现在我们一直想要的swiftSupport上.</p>
-<p><img src="./pack_for_ios/10.png" alt></p>
+<img src="/2019/10/16/pack_for_ios/10.png">
 <p>这次这个包就能顺利过通过苹果的扫描检查了.</p>
 <h1 id="0x3-总结"><a href="#0x3-总结" class="headerlink" title="0x3 总结"></a>0x3 总结</h1><p>最终解决这个问题就是通过使用archive的命令来打ipa解决的, 但这过程中更重要的是怎么在没办法获取到打包机器的签名信息的情况下去做跟签名有关的事情. </p>
 
