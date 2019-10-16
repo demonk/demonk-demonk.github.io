@@ -128,6 +128,86 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-android-e4-b8-8a-e5-88-9b-e5-bb-badalvik-e8-99-9a-e6-8b-9f-e6-9c-ba-e4-b8-8e-e7-b1-bb-e5-8a-a0-e8-bd-bd" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/16/android-e4-b8-8a-e5-88-9b-e5-bb-badalvik-e8-99-9a-e6-8b-9f-e6-9c-ba-e4-b8-8e-e7-b1-bb-e5-8a-a0-e8-bd-bd/">Android上创建Dalvik虚拟机与加载类</a>
+    </h1>
+  
+
+        
+        <a href="/2015/04/16/android-e4-b8-8a-e5-88-9b-e5-bb-badalvik-e8-99-9a-e6-8b-9f-e6-9c-ba-e4-b8-8e-e7-b1-bb-e5-8a-a0-e8-bd-bd/" class="archive-article-date">
+  	<time datetime="2015-04-16T12:01:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-04-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>从native中创建一个JVM虚拟机比较简单，引入jni.h后就创建了<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#incldue <span class="meta-string">&lt;jni.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   JavaVMOption options[n];<span class="comment">//创建虚拟机时的选项</span></span><br><span class="line">   JNIEnv *env;<span class="comment">//创建虚拟机后的环境变量指针</span></span><br><span class="line">   JavaVM *jvm;<span class="comment">//VM对象</span></span><br><span class="line">   JavaVMInitArgs vm_args;<span class="comment">//创建虚拟机时的所有选项</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">long</span> status=JNI_CreateJavaVM(&amp;jvm, (<span class="keyword">void</span>**)&amp;env, &amp;vm_args);</span><br><span class="line">   <span class="keyword">if</span>(status!=JNI_ERR)</span><br><span class="line">   &#123;</span><br><span class="line">     <span class="comment">//create jvm succ</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        
+          <a class="article-more-a" href="/2015/04/16/android-e4-b8-8a-e5-88-9b-e5-bb-badalvik-e8-99-9a-e6-8b-9f-e6-9c-ba-e4-b8-8e-e7-b1-bb-e5-8a-a0-e8-bd-bd/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2015/04/16/android-e4-b8-8a-e5-88-9b-e5-bb-badalvik-e8-99-9a-e6-8b-9f-e6-9c-ba-e4-b8-8e-e7-b1-bb-e5-8a-a0-e8-bd-bd/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-native-e5-8a-a0-e8-bd-bdso-e5-ba-93" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -844,89 +924,9 @@
 
 
   
-    <article id="post-linux-e4-b8-8bandroid-e8-ae-be-e7-bd-aeno-permissions-e9-97-ae-e9-a2-98" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/08/22/linux-e4-b8-8bandroid-e8-ae-be-e7-bd-aeno-permissions-e9-97-ae-e9-a2-98/">linux下android设置no permissions问题</a>
-    </h1>
-  
-
-        
-        <a href="/2014/08/22/linux-e4-b8-8bandroid-e8-ae-be-e7-bd-aeno-permissions-e9-97-ae-e9-a2-98/" class="archive-article-date">
-  	<time datetime="2014-08-22T06:06:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-08-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>linux下插入android的手机时经常会遇到诸如<br><a href="/uploads/2014/08/2014-08-22-113530.png"><img src="/uploads/2014/08/2014-08-22-113530.png" alt="2014-08-22 11:35:30"></a><br>这种问题。这是因为linux对USB权限管理上做限制的关系，以下以Fedora 20为例说明怎么修改。</p>
-        
-          <a class="article-more-a" href="/2014/08/22/linux-e4-b8-8bandroid-e8-ae-be-e7-bd-aeno-permissions-e9-97-ae-e9-a2-98/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2014/08/22/linux-e4-b8-8bandroid-e8-ae-be-e7-bd-aeno-permissions-e9-97-ae-e9-a2-98/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/8/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/10/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/8/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/10/">Next &raquo;</a>
     </nav>
   
 
@@ -1051,11 +1051,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Javassist</a>
+                <a href="javascript:void(0)" class="js-tag color5">生活常识</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">生活常识</a>
+                <a href="javascript:void(0)" class="js-tag color5">Javassist</a>
               </li>
              
               <li class="article-tag-list-item">

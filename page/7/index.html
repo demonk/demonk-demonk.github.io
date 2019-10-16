@@ -128,6 +128,79 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-sparsearray-e4-b8-8ehashmap-e5-ae-9e-e7-8e-b0-e5-8c-ba-e5-88-ab" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/18/sparsearray-e4-b8-8ehashmap-e5-ae-9e-e7-8e-b0-e5-8c-ba-e5-88-ab/">SparseArray与HashMap实现区别</a>
+    </h1>
+  
+
+        
+        <a href="/2015/11/18/sparsearray-e4-b8-8ehashmap-e5-ae-9e-e7-8e-b0-e5-8c-ba-e5-88-ab/" class="archive-article-date">
+  	<time datetime="2015-11-18T07:32:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-11-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">未分类</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2015/11/18/sparsearray-e4-b8-8ehashmap-e5-ae-9e-e7-8e-b0-e5-8c-ba-e5-88-ab/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-buck-e4-b8-8b-e6-b7-b7-e6-b7-86-e8-87-aa-e5-8a-a8-e4-bc-98-e5-8c-96" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -834,93 +907,9 @@
 
 
   
-    <article id="post-inject" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/08/13/inject/">inject</a>
-    </h1>
-  
-
-        
-        <a href="/2015/08/13/inject/" class="archive-article-date">
-  	<time datetime="2015-08-13T06:25:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-08-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <a id="more"></a>
-<p>1. 用汇编编译</p>
-<p>Android.mk<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH := $(call my-dir)  </span><br><span class="line"></span><br><span class="line">include $(CLEAR_VARS)  </span><br><span class="line"></span><br><span class="line">LOCAL_MODULE := asm   </span><br><span class="line">LOCAL_ARM_MODE := arm</span><br><span class="line"></span><br><span class="line">TARGET_CFLAGS += -mthumb-interwork</span><br><span class="line">TARGET_CFLAGS += -std=gnu11</span><br><span class="line">TARGET_CFLAGS += -O3</span><br><span class="line"></span><br><span class="line">ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)  <span class="comment">#depends on Application.mk</span></span><br><span class="line">    LOCAL_CFLAGS := -DHAVE_NEON=1</span><br><span class="line">    LOCAL_SRC_FILES += asm.s.neon      <span class="comment">#use neon mode for asm</span></span><br><span class="line">    LOCAL_ARM_NEON  := <span class="literal">true</span> </span><br><span class="line">endif</span><br><span class="line"></span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">#shellcode.s  </span></span><br><span class="line"></span><br><span class="line">LOCAL_LDLIBS += -L$(SYSROOT)/usr/lib -llog  </span><br><span class="line"></span><br><span class="line"><span class="comment">#LOCAL_FORCE_STATIC_EXECUTABLE := true  </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#include $(BUILD_EXECUTABLE)  </span></span><br><span class="line">include $(BUILD_SHARED_LIBRARY)</span><br></pre></td></tr></table></figure></p>
-<p>Application.mk<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">APP_ABI := armeabi-v7a <span class="comment"># build for arm-v7</span></span><br></pre></td></tr></table></figure></p>
-<p>asm.s<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">.text</span>		<span class="comment">@code section</span></span><br><span class="line"><span class="symbol">.align</span> <span class="number">4</span>	<span class="comment">@align for 2^4 bytes</span></span><br><span class="line"><span class="symbol">.thumb</span>		</span><br><span class="line"></span><br><span class="line"><span class="symbol">.globl</span> my_real_arm	<span class="comment">@global symbol my_real_arm</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">my_real_arm</span>:</span><br><span class="line">	<span class="keyword">push </span>&#123;<span class="built_in">r1</span>,<span class="built_in">lr</span>&#125;          <span class="comment">@将r1,lr入栈</span></span><br><span class="line">	<span class="keyword">push </span>&#123;<span class="built_in">r0</span>-<span class="built_in">r7</span>&#125;          <span class="comment">@将r0至r7入栈</span></span><br><span class="line">	<span class="keyword">LDR </span><span class="built_in">R7</span>, [<span class="built_in">R4</span>,<span class="number">#0x14</span>]    <span class="comment">@基址寻址，将R4的值+0x14(十进制20）作为地址，然后将该地址的值给R7</span></span><br><span class="line">	<span class="keyword">ldr </span><span class="built_in">r3</span>,<span class="number">=10013</span>         <span class="comment">@赋值10013给r3</span></span><br><span class="line">	<span class="keyword">CMP </span><span class="built_in">R7</span>, <span class="built_in">R3</span>            <span class="comment">@比较r3与r7</span></span><br><span class="line">	<span class="keyword">pop </span>&#123;<span class="built_in">r0</span>-<span class="built_in">r7</span>&#125;</span><br><span class="line">	<span class="keyword">BEQ </span>loc_ret_1</span><br><span class="line">	<span class="keyword">LDR </span><span class="built_in">R3</span>, [<span class="built_in">R0</span>]</span><br><span class="line">	<span class="keyword">LDR </span><span class="built_in">R2</span>, [<span class="built_in">R4</span>]</span><br><span class="line">	<span class="keyword">pop </span>&#123;<span class="built_in">r1</span>,<span class="built_in">pc</span>&#125;</span><br><span class="line"><span class="symbol">	loc_ret_1:</span></span><br><span class="line">	<span class="keyword">mov </span><span class="built_in">r3</span>, <span class="number">#0</span></span><br><span class="line">	<span class="keyword">mov </span><span class="built_in">r2</span>, <span class="number">#1</span></span><br><span class="line">	<span class="keyword">pop </span>&#123;<span class="built_in">r1</span>,<span class="built_in">pc</span>&#125;</span><br></pre></td></tr></table></figure></p>
-<p><a href="/uploads/2015/01/asm.tar.gz">asm.tar</a></p>
-<p>然后，使用ndk-build即可。</p>
-<p>2. 获取汇编指令对应的十六进制<br>因为ptrace要写入的代码不能是直接的汇编指令，而是指令对应的十进进制，故需要先用IDA找出汇编代码对应的十六进制代码才行。</p>
-<p>使用IDA可以逆向出此代码：<br><a href="/uploads/2015/01/2015-01-15-204739-的屏幕截图.png"><img src="/uploads/2015/01/2015-01-15-204739-的屏幕截图.png" alt="2015-01-15 20:47:39 的屏幕截图"></a></p>
-<p>然后使用HEX的视图（需要与反汇编出来的代码进行同步，右键），然后就可以知道每一个指令对应的十六进制：<br><a href="/uploads/2015/01/2015-01-15-212304-的屏幕截图.png"><img src="/uploads/2015/01/2015-01-15-212304-的屏幕截图.png" alt="2015-01-15 21:23:04 的屏幕截图"></a></p>
-<p>3. trace</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">未分类</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/08/13/inject/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
     </nav>
   
 
@@ -1045,11 +1034,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Javassist</a>
+                <a href="javascript:void(0)" class="js-tag color5">生活常识</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">生活常识</a>
+                <a href="javascript:void(0)" class="js-tag color5">Javassist</a>
               </li>
              
               <li class="article-tag-list-item">
