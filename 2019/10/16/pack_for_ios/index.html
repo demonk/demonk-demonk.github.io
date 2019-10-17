@@ -23,10 +23,9 @@
 <meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/6.png">
 <meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/7.png">
 <meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/8.png">
-<meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/4.png">
 <meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/9.png">
 <meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/10.png">
-<meta property="og:updated_time" content="2019-10-17T01:55:39.695Z">
+<meta property="og:updated_time" content="2019-10-17T02:05:30.535Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="花式解决iOS持续集成的坑">
 <meta name="twitter:description" content="0x0 前言我所在的项目里, ios的工程一直都是使用纯OC来编写的, 以前一直都相安无事. 最近来了一位新同学, 一边感叹我们为什么不切换使用swift, 一边给工程里引了一些开源的组件, 开始我其实也没怎么在意, 不就混编嘛, 在本身开发调试运行一直都很顺利, 仿佛一切都没有发生过一样.  直到把工程放到Jenkins中编译, 问题才开始多起来.">
@@ -253,7 +252,7 @@
 <p>这个问题还是比较好解的, 只需要使用PlistBuddy对于这个key的值重新赋值就行了.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/usr/libexec/PlistBuddy -c 'Delete :com.apple.developer.associated-domains' entitlements.plist</span><br><span class="line">/usr/libexec/PlistBuddy -c 'Add :com.apple.developer.associated-domains array' entitlements.plist</span><br><span class="line">/usr/libexec/PlistBuddy -c 'Add :com.apple.developer.associated-domains: string applinks:www.baidu.cn' entitlements.plist</span><br><span class="line">/usr/libexec/PlistBuddy -c 'Add :com.apple.developer.associated-domains: string applinks:google.cn' entitlements.plist</span><br></pre></td></tr></table></figure>
 <h2 id="0x12-再次打回"><a href="#0x12-再次打回" class="headerlink" title="0x12 再次打回"></a>0x12 再次打回</h2><p>此文不结束表示这问题就还没解决……是的又打回了, 又说包里没有swiftSupport的……</p>
-<img src="/2019/10/16/pack_for_ios/4.png">
+<p><a href="pack_for_ios/5.png"></a></p>
 <p>问题又回到了原点. 看来只是单纯地针对原来的包重新签名也不能解决问题, 其根本是因为包里缺少所谓的SwiftSupport文件. </p>
 <p>那么得换种思路了, 针对原来的脚本打出来的包去做调整不行, 那能不能直接换种打包的方法.</p>
 <h3 id="0x121-脚本分析"><a href="#0x121-脚本分析" class="headerlink" title="0x121 脚本分析"></a>0x121 脚本分析</h3><p>原来使用的脚本虽然是使用xcodebuild,但并非直接输出ipa, 而是输出app, 最终通过zip直接压成ipa.</p>
