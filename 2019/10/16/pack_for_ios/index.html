@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/4.png">
 <meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/9.png">
 <meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/10.png">
-<meta property="og:updated_time" content="2019-10-16T10:51:15.170Z">
+<meta property="og:updated_time" content="2019-10-17T01:55:39.695Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="花式解决iOS持续集成的坑">
 <meta name="twitter:description" content="0x0 前言我所在的项目里, ios的工程一直都是使用纯OC来编写的, 以前一直都相安无事. 最近来了一位新同学, 一边感叹我们为什么不切换使用swift, 一边给工程里引了一些开源的组件, 开始我其实也没怎么在意, 不就混编嘛, 在本身开发调试运行一直都很顺利, 仿佛一切都没有发生过一样.  直到把工程放到Jenkins中编译, 问题才开始多起来.">
@@ -244,7 +244,14 @@
 <p>从这个列表里我们可以很容易看出用用于真实签名的证书究竟是哪个(看名字), 其中前面的串就是其对应的id值了.</p>
 <p>最终使用id来替换证书名, 再执行重签就可以了.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">certifierName="029C0A39D616612820DBA9B49XXXXXXXXXXXXXXXX";</span><br><span class="line">codesign -f -s $certifierName --entitlements entitlements.plist "$&#123;DEFS_TARGET&#125;.app"</span><br></pre></td></tr></table></figure>
-<p>此时在打包平台上的重签名过程可以告一段落了. 再次上传包等待扫描结果. </p>
+<p>此时在打包平台上的重签名过程可以告一段落了. 再次上传包等待扫描结果. 不一向, 马上就失败了, 连扫描的一关都过不了, 提示如下:</p>
+<blockquote>
+<p>ERROR ITMS-90046: “Invalid Code Signing Entitlements. Your application bundle’s signature contains code signing entitlements that are not supported on iOS. Specifically, value ‘*’ for key ‘com.apple.developer.associated-domains’ in ‘Payload/XXX.app/xxx’ is not supported.”</p>
+</blockquote>
+<p>因为我在配置provision时配置了associated-domains, 但在构建 entitlements.plist时, 里面的associated-domains是</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>com.apple.developer.associated-domains<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>*<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这个问题还是比较好解的, 只需要使用PlistBuddy对于这个key的值重新赋值就行了.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/usr/libexec/PlistBuddy -c 'Delete :com.apple.developer.associated-domains' entitlements.plist</span><br><span class="line">/usr/libexec/PlistBuddy -c 'Add :com.apple.developer.associated-domains array' entitlements.plist</span><br><span class="line">/usr/libexec/PlistBuddy -c 'Add :com.apple.developer.associated-domains: string applinks:www.baidu.cn' entitlements.plist</span><br><span class="line">/usr/libexec/PlistBuddy -c 'Add :com.apple.developer.associated-domains: string applinks:google.cn' entitlements.plist</span><br></pre></td></tr></table></figure>
 <h2 id="0x12-再次打回"><a href="#0x12-再次打回" class="headerlink" title="0x12 再次打回"></a>0x12 再次打回</h2><p>此文不结束表示这问题就还没解决……是的又打回了, 又说包里没有swiftSupport的……</p>
 <img src="/2019/10/16/pack_for_ios/4.png">
 <p>问题又回到了原点. 看来只是单纯地针对原来的包重新签名也不能解决问题, 其根本是因为包里缺少所谓的SwiftSupport文件. </p>
