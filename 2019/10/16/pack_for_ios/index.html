@@ -25,7 +25,7 @@
 <meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/8.png">
 <meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/9.png">
 <meta property="og:image" content="http://nexus.demonk.cn/2019/10/16/pack_for_ios/10.png">
-<meta property="og:updated_time" content="2019-10-17T02:05:30.535Z">
+<meta property="og:updated_time" content="2019-10-17T02:12:21.203Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="花式解决iOS持续集成的坑">
 <meta name="twitter:description" content="0x0 前言我所在的项目里, ios的工程一直都是使用纯OC来编写的, 以前一直都相安无事. 最近来了一位新同学, 一边感叹我们为什么不切换使用swift, 一边给工程里引了一些开源的组件, 开始我其实也没怎么在意, 不就混编嘛, 在本身开发调试运行一直都很顺利, 仿佛一切都没有发生过一样.  直到把工程放到Jenkins中编译, 问题才开始多起来.">
@@ -272,6 +272,7 @@
 <img src="/2019/10/16/pack_for_ios/10.png">
 <p>这次这个包就能顺利过通过苹果的扫描检查了.</p>
 <h1 id="0x3-总结"><a href="#0x3-总结" class="headerlink" title="0x3 总结"></a>0x3 总结</h1><p>最终解决这个问题就是通过使用archive的命令来打ipa解决的, 但这过程中更重要的是怎么在没办法获取到打包机器的签名信息的情况下去做跟签名有关的事情. </p>
+<p>[Links]<br><a href="https://www.cnblogs.com/pixy/p/4817579.html" target="_blank" rel="noopener">Security工具</a>]<br><a href="https://www.jianshu.com/p/6a0aa8cd2e97" target="_blank" rel="noopener">命令行打包</a><br><a href="https://juejin.im/post/5cedf87ce51d4556bb4cd313" target="_blank" rel="noopener">重签名</a><br><a href="https://saucym.github.io/2017/03/03/ITMS-90171/" target="_blank" rel="noopener">填坑路之:ITMS-90171</a></p>
 
       
 
