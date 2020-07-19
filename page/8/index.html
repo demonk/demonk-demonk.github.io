@@ -128,6 +128,84 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-art-e4-b8-8b-e5-88-9b-e5-bb-ba-e8-99-9a-e6-8b-9f-e6-9c-ba-e7-9a-84-e9-97-ae-e9-a2-98-e8-a1-a5-e5-85-85" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/08/14/art-e4-b8-8b-e5-88-9b-e5-bb-ba-e8-99-9a-e6-8b-9f-e6-9c-ba-e7-9a-84-e9-97-ae-e9-a2-98-e8-a1-a5-e5-85-85/">art下创建虚拟机的问题补充</a>
+    </h1>
+  
+
+        
+        <a href="/2015/08/14/art-e4-b8-8b-e5-88-9b-e5-bb-ba-e8-99-9a-e6-8b-9f-e6-9c-ba-e7-9a-84-e9-97-ae-e9-a2-98-e8-a1-a5-e5-85-85/" class="archive-article-date">
+  	<time datetime="2015-08-14T07:13:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-08-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在完善创建jvm的过程，基本上与上次写的<a href="http://www.demonk.cn/?p=410" target="_blank" rel="noopener">《ANDROID上创建DALVIK虚拟机与加载类》</a>一致，此前在测试dalvik及art模式下的时候都没问题的，但最近在使用art模式下创建jvm时去遇到了问题。</p>
+<p>使用dlopen打开了libart.so的句柄后，能正常获取到JNI_CreateJavaVM方法，但就是创建不了虚拟机，logcat中提示“InitializeSignalChain is not exported by the main executable.”。大概意思就是InitializeSignalChain没被导出，找不到相关引用的意思吧，第一反应是去找这句提示的出处，最后找到的是在以下地方，代码如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// art/sigchainlib/sigchain_dummy.cc</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> <span class="function"><span class="keyword">void</span> <span class="title">InitializeSignalChain</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">log</span>(<span class="string">"InitializeSignalChain is not exported by the main executable."</span>);</span><br><span class="line">  <span class="built_in">abort</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2015/08/14/art-e4-b8-8b-e5-88-9b-e5-bb-ba-e8-99-9a-e6-8b-9f-e6-9c-ba-e7-9a-84-e9-97-ae-e9-a2-98-e8-a1-a5-e5-85-85/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2015/08/14/art-e4-b8-8b-e5-88-9b-e5-bb-ba-e8-99-9a-e6-8b-9f-e6-9c-ba-e7-9a-84-e9-97-ae-e9-a2-98-e8-a1-a5-e5-85-85/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-inject" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -822,80 +900,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2015/05/21/hg-e8-bf-81-e7-a7-bbgit/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-e8-ae-b0-e5-bd-95-e8-b4-b4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/21/e8-ae-b0-e5-bd-95-e8-b4-b4/">记录贴</a>
-    </h1>
-  
-
-        
-        <a href="/2015/05/21/e8-ae-b0-e5-bd-95-e8-b4-b4/" class="archive-article-date">
-  	<time datetime="2015-05-21T06:16:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-05-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>MultiRom<br><a href="http://images.devaamo.fi/sfa/" target="_blank" rel="noopener">http://images.devaamo.fi/sfa/</a><br><a href="http://forum.xda-developers.com/google-nexus-5/development/b2g-firefox-os-hammerhead-t2601556" target="_blank" rel="noopener">http://forum.xda-developers.com/google-nexus-5/development/b2g-firefox-os-hammerhead-t2601556</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">未分类</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/05/21/e8-ae-b0-e5-bd-95-e8-b4-b4/">展开全文 >></a>
         </p>
       
 

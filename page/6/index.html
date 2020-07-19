@@ -128,6 +128,85 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-singleton-in-java" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/11/singleton-in-java/">Singleton in Java</a>
+    </h1>
+  
+
+        
+        <a href="/2016/06/11/singleton-in-java/" class="archive-article-date">
+  	<time datetime="2016-06-10T17:19:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>单例在Java中应用很广泛，最近看了一些文章，想就单例的几种写法做一点归纳。</p>
+<h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example 1"></a>Example 1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonExample</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> SingletonExample INSTANCE=<span class="keyword">new</span> SingletonExample();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种办法比较简单明了，单例对象被声明为类的静态变量，在类被创建的初期，单例就会同步被创建。这种办法虽然简单，但依然可以避免多线程并发情况下可能创建多个对象的问题，这是依靠类加载机制保证的，因为加载类的时候只有单线程。</p>
+<p>但因为对象的创建是在类被加载时，类的构建方法如果存在着很耗时的操作，那代价也挺大的，所以如果使用这种办法，可能需要将创建对象与初始化对象两个操作分离，即保证完对象唯一后，再去做余下的初始化工作 。</p>
+        
+          <a class="article-more-a" href="/2016/06/11/singleton-in-java/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/06/11/singleton-in-java/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-e4-bd-bf-e7-94-a8javassist-e5-8a-a8-e6-80-81-e7-94-9f-e6-88-90-e7-b1-bb-e5-b9-b6-e5-8a-a0-e8-bd-bd" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -799,86 +878,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2015/11/29/installing-mysql-in-fedora/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-buck-e7-94-9f-e6-88-90r-e5-b8-b8-e9-87-8f-e7-9a-84-e9-97-ae-e9-a2-98" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/21/buck-e7-94-9f-e6-88-90r-e5-b8-b8-e9-87-8f-e7-9a-84-e9-97-ae-e9-a2-98/">BUCK生成R常量的问题</a>
-    </h1>
-  
-
-        
-        <a href="/2015/11/21/buck-e7-94-9f-e6-88-90r-e5-b8-b8-e9-87-8f-e7-9a-84-e9-97-ae-e9-a2-98/" class="archive-article-date">
-  	<time datetime="2015-11-21T06:38:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-11-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在编译一个APK的时候,采用标准的BUCK三段式(res,library,apk)</p>
-        
-          <a class="article-more-a" href="/2015/11/21/buck-e7-94-9f-e6-88-90r-e5-b8-b8-e9-87-8f-e7-9a-84-e9-97-ae-e9-a2-98/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">BUCK</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/11/21/buck-e7-94-9f-e6-88-90r-e5-b8-b8-e9-87-8f-e7-9a-84-e9-97-ae-e9-a2-98/">展开全文 >></a>
         </p>
       
 
