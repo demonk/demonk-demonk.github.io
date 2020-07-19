@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://nexus.demonk.cn">
-  <title>Archives: 2020/7 | -NULL-</title>
+  <title>ThreadPool | -NULL-</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="-NULL-">
-<meta property="og:url" content="http://nexus.demonk.cn/archives/2020/07/index.html">
+  <meta name="description" content="线程池对于开发者来说应该是一个很熟悉的东西了，在处理多并发的任务时其能提供便利的线程复用和任务调度能力，Java上的线程池封装得也很简单。只是没想到在多年后的今天居然栽在线程池的配置上，还差点导致问题，这我不得不让我反思自己的基础技术的掌握能力是否及格。">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ThreadPool">
+<meta property="og:url" content="http://nexus.demonk.cn/2020/04/21/java_thread_pool/index.html">
 <meta property="og:site_name" content="-NULL-">
+<meta property="og:description" content="线程池对于开发者来说应该是一个很熟悉的东西了，在处理多并发的任务时其能提供便利的线程复用和任务调度能力，Java上的线程池封装得也很简单。只是没想到在多年后的今天居然栽在线程池的配置上，还差点导致问题，这我不得不让我反思自己的基础技术的掌握能力是否及格。">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-07-19T13:37:32.769Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="-NULL-">
+<meta name="twitter:title" content="ThreadPool">
+<meta name="twitter:description" content="线程池对于开发者来说应该是一个很熟悉的东西了，在处理多并发的任务时其能提供便利的线程复用和任务调度能力，Java上的线程池封装得也很简单。只是没想到在多年后的今天居然栽在线程池的配置上，还差点导致问题，这我不得不让我反思自己的基础技术的掌握能力是否及格。">
   
     <link rel="alternative" href="/atom.xml" title="-NULL-" type="application/atom+xml">
   
@@ -126,43 +131,221 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-java_thread_pool" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      ThreadPool
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/19/java_thread_pool/" class="archive-article-date">
-  	<time datetime="2020-07-19T11:27:52.114Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-19</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+        
+        <a href="/2020/04/21/java_thread_pool/" class="archive-article-date">
+  	<time datetime="2020-04-21T11:08:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>线程池对于开发者来说应该是一个很熟悉的东西了，在处理多并发的任务时其能提供便利的线程复用和任务调度能力，Java上的线程池封装得也很简单。只是没想到在多年后的今天居然栽在线程池的配置上，还差点导致问题，这我不得不让我反思自己的基础技术的掌握能力是否及格。</p>
+<a id="more"></a>
+<h1 id="0x0-一般使用"><a href="#0x0-一般使用" class="headerlink" title="0x0 一般使用"></a>0x0 一般使用</h1><p>在Java中我们要使用线程池很简单，直接调用Execotors的静态方法就可以获取一个线程池实例了，如创建一个无上限线程数的线程池只需要调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Executors.newCachedThreadPool()</span><br></pre></td></tr></table></figure>
+<p>Executors内置了好几种不同模式的线程池形式，以用于不同的使用场合，如此简单。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Executors.newFixedThreadPool(<span class="number">3</span>);<span class="comment">//定义一个有三个线程的线程池</span></span><br><span class="line">Executors.newSingleThreadExecutor();<span class="comment">//定义有一个线程池的线程池</span></span><br><span class="line">Execurots.newCachedThreadPool();<span class="comment">//定义无上限的线程池</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="0x1-默认模式"><a href="#0x1-默认模式" class="headerlink" title="0x1 默认模式"></a>0x1 默认模式</h1><p>拆开Executors的常用方法来看，这几种模式其实无非是对ThreadPoolExecutor配置一些默认参数，如newCachedThreadPool的实现为</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newCachedThreadPool</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">0</span>, Integer.MAX_VALUE,</span><br><span class="line">                                  <span class="number">60L</span>, TimeUnit.SECONDS,</span><br><span class="line">                                  <span class="keyword">new</span> SynchronousQueue&lt;Runnable&gt;());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>选取ThradPoolExecutor参数最完整的构造方法如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                          TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                          BlockingQueue&lt;Runnable&gt; workQueue,</span></span></span><br><span class="line"><span class="function"><span class="params">                          ThreadFactory threadFactory,</span></span></span><br><span class="line"><span class="function"><span class="params">                          RejectedExecutionHandler handler)</span> </span>&#123;</span><br></pre></td></tr></table></figure></p>
+<p>其中包括了当前核心线程数，最大线程数，任务队列和线程的生命周期等,ThreadFactory可以自定义生成Thread时的一些过程，如是否是守护线程，线程的名称自定义等等。</p>
+<p>对于一般使用者而言，更多关心的是核心与最大线程数以及任务队列之间的关系，它们之间的组合直接会影响到线程池最终的表现。</p>
+<ul>
+<li><p>Execotor其实是一个Manager的角色，用于调度和控制线程生成回收，任务派发等；</p>
+</li>
+<li><p>corePoolSize: 核心线程数一般定义为这个线程池里常驻的线程数，也就是不会因为被停止的线程，用于一些任务数比较固定的场合会比较合适；</p>
+</li>
+<li><p>maximumPoolSize: 最大的线程数一般定义为这个线程池里允许最多能同时存活多少个线程，一般这个数会比核心的多，当任务超过核心线程数但未走过最大线程数后，就会在线程池内动态创建线程用于新任务执行。</p>
+</li>
+<li><p>workQueue： 任务队列，会决定任务调试策略与任务缓存的</p>
+</li>
+<li><p>RejectedExecutionHandler：线程池中资源全部占用，提交任务失败后的回调</p>
+</li>
+</ul>
+<p>理论上应该是这样子的， 但！是！这不是绝对的，中间一个比较关键的变量 —— 任务队列, 可能会导致代码运行情况跟预期不一样。</p>
+<h1 id="0x2-任务队列-amp-amp-排队策略"><a href="#0x2-任务队列-amp-amp-排队策略" class="headerlink" title="0x2 任务队列&amp;&amp;排队策略"></a>0x2 任务队列&amp;&amp;排队策略</h1><p>如上所描述，一般我所理解的线程池调度都是核心线程先用，不够了就放队列里，没超过最大线程数就开新线程执行，但这个是不一定的，任务队列的差异会导致任务的调度表现有所不同。</p>
+<p>结合例子先来看有哪些队列，以及它们的表现(先以BlockingQueue占坑）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Executor executor;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        executor = <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">2</span>, <span class="number">10</span>, <span class="number">30L</span>, TimeUnit.SECONDS, <span class="keyword">new</span> BlockingQueue&lt;Runnable&gt;());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">            executor.execute(<span class="keyword">new</span> Task(i));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"start"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Task</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> index;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Task</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>();</span><br><span class="line">            index = i;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            System.out.println(<span class="string">""</span> + index+<span class="string">", thread="</span>+Thread.currentThread()+<span class="string">", time="</span>+System.currentTimeMillis());</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="0x21-LinkedBlockingQueue"><a href="#0x21-LinkedBlockingQueue" class="headerlink" title="0x21 LinkedBlockingQueue"></a>0x21 LinkedBlockingQueue</h2><p>LikedBlockingQueue是一个无界的有序缓存等待队列，可以将任务丢到队列中等待，当线程池已经满的时候新增加的任务就会被放入等待队列中等待调度，先来先处理。</p>
+<p>在上述例子中，按照以往的理解，因为核心线程数是2，最大线程数是10，那同时开启的话应该会有10个线程，等待队列应该是为空的，且先看一次执行的输出 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1, thread=Thread[pool-1-thread-2,5,main], time=1595145659355</span><br><span class="line">0, thread=Thread[pool-1-thread-1,5,main], time=1595145659355</span><br><span class="line">2, thread=Thread[pool-1-thread-2,5,main], time=1595145663361</span><br><span class="line">3, thread=Thread[pool-1-thread-1,5,main], time=1595145663361</span><br><span class="line">4, thread=Thread[pool-1-thread-2,5,main], time=1595145667371</span><br><span class="line">5, thread=Thread[pool-1-thread-1,5,main], time=1595145667371</span><br><span class="line">6, thread=Thread[pool-1-thread-2,5,main], time=1595145671378</span><br><span class="line">7, thread=Thread[pool-1-thread-1,5,main], time=1595145671378</span><br><span class="line">9, thread=Thread[pool-1-thread-1,5,main], time=1595145675384</span><br><span class="line">8, thread=Thread[pool-1-thread-2,5,main], time=1595145675384</span><br></pre></td></tr></table></figure>
+<p>很明显不是，线程池最终只开启了两个核心线程，剩下的新提交的任务都被放到了等待队列中等待了。也就是说，maximumPoolSize这个参数在这种场景下没发挥作用。</p>
+<p>再看maximumPoolSize=2时的情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">size=0</span><br><span class="line">size=0</span><br><span class="line">size=1</span><br><span class="line">size=2</span><br><span class="line">size=3</span><br><span class="line">size=4</span><br><span class="line">size=5</span><br><span class="line">size=6</span><br><span class="line">size=7</span><br><span class="line">size=8</span><br><span class="line">start</span><br><span class="line">0, thread=Thread[pool-1-thread-1,5,main], time=1595156453471</span><br><span class="line">1, thread=Thread[pool-1-thread-2,5,main], time=1595156453475</span><br><span class="line">2, thread=Thread[pool-1-thread-1,5,main], time=1595156457477</span><br><span class="line">3, thread=Thread[pool-1-thread-2,5,main], time=1595156457482</span><br><span class="line">4, thread=Thread[pool-1-thread-1,5,main], time=1595156461485</span><br><span class="line">5, thread=Thread[pool-1-thread-2,5,main], time=1595156461490</span><br><span class="line">6, thread=Thread[pool-1-thread-1,5,main], time=1595156465493</span><br><span class="line">7, thread=Thread[pool-1-thread-2,5,main], time=1595156465499</span><br><span class="line">8, thread=Thread[pool-1-thread-1,5,main], time=1595156469495</span><br><span class="line">9, thread=Thread[pool-1-thread-2,5,main], time=1595156469507</span><br></pre></td></tr></table></figure>
+<p>所以最终除了核心线程数，也只是会直接添加到队列中去。</p>
+<p>需要注意的是，LinkedBlockingQueue虽然说是无界的，但它的无界只是说在默认情况下容量为Integer.MAX_VALUE而已，当然也是可以自己指定它的容量大小的，如果添加队列失败，核心线程又已经满了，那最后就会导致添加任务失败，被reject了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LinkedBlockingQueue queue=<span class="keyword">new</span> LinkedBlockingQueue(<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<p>限制queue大小为2时的结果 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">4, thread=Thread[pool-1-thread-3,5,main], time=1595154384425</span><br><span class="line">8, thread=Thread[pool-1-thread-7,5,main], time=1595154384425</span><br><span class="line">5, thread=Thread[pool-1-thread-4,5,main], time=1595154384425</span><br><span class="line">0, thread=Thread[pool-1-thread-1,5,main], time=1595154384425</span><br><span class="line">7, thread=Thread[pool-1-thread-6,5,main], time=1595154384425</span><br><span class="line">1, thread=Thread[pool-1-thread-2,5,main], time=1595154384425</span><br><span class="line">9, thread=Thread[pool-1-thread-8,5,main], time=1595154384425</span><br><span class="line">6, thread=Thread[pool-1-thread-5,5,main], time=1595154384425</span><br><span class="line">2, thread=Thread[pool-1-thread-3,5,main], time=1595154388433</span><br><span class="line">3, thread=Thread[pool-1-thread-5,5,main], time=1595154388433</span><br></pre></td></tr></table></figure>
+<p>可见同时开了8个线程，workQueue.offer里添加失败了，只放进了两了，减去2个核心的，剩下6个全部都是走了最后的一个addWorker的判断，因为任务最终还是少于maximumPoolSize,所以另外开了6个线程，总共8个线程在并行。</p>
+<p>当maximumPoolSize小于总任务数时，就reject了。</p>
+<h2 id="0x22-SynchronousQueue"><a href="#0x22-SynchronousQueue" class="headerlink" title="0x22 SynchronousQueue"></a>0x22 SynchronousQueue</h2><p>SynchronousQueue其实并不会缓存任何元素，调用size方法永远返回0，如果总任务数满足最大任务数，直接就提交给线程池去创建新线程了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1, thread=Thread[pool-1-thread-2,5,main], time=1595155069288</span><br><span class="line">4, thread=Thread[pool-1-thread-5,5,main], time=1595155069288</span><br><span class="line">8, thread=Thread[pool-1-thread-9,5,main], time=1595155069288</span><br><span class="line">7, thread=Thread[pool-1-thread-8,5,main], time=1595155069288</span><br><span class="line">5, thread=Thread[pool-1-thread-6,5,main], time=1595155069288</span><br><span class="line">0, thread=Thread[pool-1-thread-1,5,main], time=1595155069288</span><br><span class="line">2, thread=Thread[pool-1-thread-3,5,main], time=1595155069288</span><br><span class="line">3, thread=Thread[pool-1-thread-4,5,main], time=1595155069288</span><br><span class="line">6, thread=Thread[pool-1-thread-7,5,main], time=1595155069288</span><br><span class="line">9, thread=Thread[pool-1-thread-10,5,main], time=1595155069288</span><br></pre></td></tr></table></figure>
+<p>线程都是同一时间启动的，且创建了10个线程。</p>
+<p>当maximumPoolSize少于任务数时，就reject了。</p>
+<h2 id="0x23-ArrayBlockingQueue"><a href="#0x23-ArrayBlockingQueue" class="headerlink" title="0x23 ArrayBlockingQueue"></a>0x23 ArrayBlockingQueue</h2><p>ArrayBlockingQueue必须要指定大小capacity，意为有界。</p>
+<p>它的表现需要分情况来讨论</p>
+<ol>
+<li>当capacity+核心线程数&gt;=总任务数时，除了核心线程后的其他任务都会被放到队列中缓存，但最终只会开启核心线程，其他线程任务排队执行</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">size=0</span><br><span class="line">size=0</span><br><span class="line">size=1</span><br><span class="line">size=2</span><br><span class="line">size=3</span><br><span class="line">size=4</span><br><span class="line">size=5</span><br><span class="line">size=6</span><br><span class="line">size=7</span><br><span class="line">size=8</span><br><span class="line">start</span><br><span class="line">1, thread=Thread[pool-1-thread-2,5,main], time=1595155410120</span><br><span class="line">0, thread=Thread[pool-1-thread-1,5,main], time=1595155410120</span><br><span class="line">2, thread=Thread[pool-1-thread-1,5,main], time=1595155414128</span><br><span class="line">3, thread=Thread[pool-1-thread-2,5,main], time=1595155414128</span><br><span class="line">4, thread=Thread[pool-1-thread-2,5,main], time=1595155418136</span><br><span class="line">5, thread=Thread[pool-1-thread-1,5,main], time=1595155418136</span><br><span class="line">7, thread=Thread[pool-1-thread-1,5,main], time=1595155422145</span><br><span class="line">6, thread=Thread[pool-1-thread-2,5,main], time=1595155422145</span><br><span class="line">8, thread=Thread[pool-1-thread-1,5,main], time=1595155426153</span><br><span class="line">9, thread=Thread[pool-1-thread-2,5,main], time=1595155426153</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><p>当capacity+核心线程数&lt;总任务数时，核心线程优化会满足，另外的capacity个线程会进入到队列，剩余的会直接新建线程直接执行。</p>
+<p> 以下为capacity=2时的运行情况</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">size=0</span><br><span class="line">size=0</span><br><span class="line">size=1</span><br><span class="line">size=2</span><br><span class="line">size=2</span><br><span class="line">size=2</span><br><span class="line">size=2</span><br><span class="line">size=2</span><br><span class="line">size=2</span><br><span class="line">size=2</span><br><span class="line">start</span><br><span class="line">0, thread=Thread[pool-1-thread-1,5,main], time=1595155863188</span><br><span class="line">1, thread=Thread[pool-1-thread-2,5,main], time=1595155863189</span><br><span class="line">9, thread=Thread[pool-1-thread-8,5,main], time=1595155863189</span><br><span class="line">7, thread=Thread[pool-1-thread-6,5,main], time=1595155863189</span><br><span class="line">5, thread=Thread[pool-1-thread-4,5,main], time=1595155863189</span><br><span class="line">8, thread=Thread[pool-1-thread-7,5,main], time=1595155863189</span><br><span class="line">4, thread=Thread[pool-1-thread-3,5,main], time=1595155863189</span><br><span class="line">6, thread=Thread[pool-1-thread-5,5,main], time=1595155863189</span><br><span class="line">3, thread=Thread[pool-1-thread-1,5,main], time=1595155867196</span><br><span class="line">2, thread=Thread[pool-1-thread-2,5,main], time=1595155867196</span><br></pre></td></tr></table></figure>
+<p>可见开启了8个线程，剩下的两个任务用复用原来的线程，但会后置执行。</p>
+<h1 id="0x3-总结"><a href="#0x3-总结" class="headerlink" title="0x3 总结"></a>0x3 总结</h1><p>综上可知，使用哪一种BlockedQueue都好，ThreadPoolExecutor都会遵循以下逻辑执行</p>
+<ol>
+<li>优先使用核心线程去执行</li>
+<li>核心线程跑满，优先添加到队列中去</li>
+<li>如果队列容量不够，则直接新创建线程执行</li>
+<li>如果目前线程池总数&gt;maximumPoolSize，执行reject</li>
+</ol>
+<p>其实也就是对应源码中的这一段</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">(Runnable command)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (command == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">    <span class="keyword">int</span> c = ctl.get();</span><br><span class="line">    <span class="keyword">if</span> (workerCountOf(c) &lt; corePoolSize) &#123;<span class="comment">//workerCountOf为目前活动的线程数</span></span><br><span class="line">        <span class="keyword">if</span> (addWorker(command, <span class="keyword">true</span>))<span class="comment">//添加任务到核心线程</span></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        c = ctl.get();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (isRunning(c) &amp;&amp; workQueue.offer(command)) &#123;<span class="comment">//尝试添加到队列中，如果能加就加</span></span><br><span class="line">        <span class="keyword">int</span> recheck = ctl.get();</span><br><span class="line">        <span class="comment">//double-check 一下当前线程池的情况，正常情况下下面两个判断都不会命中</span></span><br><span class="line">        <span class="keyword">if</span> (! isRunning(recheck) &amp;&amp; remove(command))</span><br><span class="line">            reject(command);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (workerCountOf(recheck) == <span class="number">0</span>)</span><br><span class="line">            addWorker(<span class="keyword">null</span>, <span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (!addWorker(command, <span class="keyword">false</span>))</span><br><span class="line">        reject(command);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color2">java -</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://nexus.demonk.cn/2020/04/21/java_thread_pool/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/10/16/pack_for_ios/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">花式解决iOS持续集成的坑</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -186,8 +369,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
@@ -366,6 +549,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
             
             <div class="clearfix"></div>
