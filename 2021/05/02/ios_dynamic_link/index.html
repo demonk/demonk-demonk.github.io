@@ -24,7 +24,7 @@
 <meta property="og:image" content="http://nexus.demonk.cn/2021/05/02/ios_dynamic_link/7.png">
 <meta property="og:image" content="http://nexus.demonk.cn/2021/05/02/ios_dynamic_link/8.png">
 <meta property="og:image" content="http://nexus.demonk.cn/2021/05/02/ios_dynamic_link/9.png">
-<meta property="og:updated_time" content="2021-05-03T13:52:37.573Z">
+<meta property="og:updated_time" content="2021-05-03T15:57:15.328Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ios单例失效扩展探讨">
 <meta name="twitter:description" content="所谓的单例失效，指的是需要在代码上已经使用了单例模式，但在实际运行时需要使用单例的类却被创建了多个实例对象，与单例的预期不一致。本文旨在了解其失效背后的原因，以及总结其规律。">
@@ -222,7 +222,7 @@
 <img src="/2021/05/02/ios_dynamic_link/9.png">
 <p>全部都是动态库时，在链接A0,A1时，因为A0，A1都是动态库，它们首先依赖的是B0，B0再依赖SingletonLibrary, 所以A0,A1内调用单例的地方需要确认方法地址时，会先去B0里找，而B0是会添加静态库的，所以B0内是可以确认到单例方法的入口地址的，从而决定 A1 ，A0 调用单例方法的地址。而app里直接调单例方法也是同样的原因，找到B0才找到可以使用的偏移地址。</p>
 <p>同样，如果把链接顺序改为 A0 –&gt; A1 –&gt; SingletonLibrary –&gt; B0，那可以想象，A1,A0调的都是App里集成的，B0还是调自己。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<h2 id="0x04-总结"><a href="#0x04-总结" class="headerlink" title="0x04 总结"></a>0x04 总结</h2><ol>
 <li>使用哪个位置的单例，取决于链接的顺序，并且能按照链接顺序确认调用位置的</li>
 <li>当动态库依赖动态库时，上一级动态库同样需要确认位置，此时会按这个动态库的依赖顺序去查找谁可以给它确定这个位置</li>
 <li>静态库链接时，方法的调用位置也是按链接顺序确认，静态库能找到则取app内的地址偏移，先找到动态库的，就取base于动态库的地址偏移</li>
