@@ -1,0 +1,18 @@
+@startuml
+' skinparam backgroundColor transparent
+skinparam legendBackgroundColor transparent
+
+(LibraryA0) as (A0) #FFB90F
+(LibraryA1) as (A1) #FFB90F
+(LibraryB0) as (B0) #FFB90F
+(LibrarySingleton) as (Lib) #ADD8E6
+
+(app) .. (A0) 
+(app) .. (A1)
+(app) .. (B0)
+(A0) .. (B0)
+(A1) .. (B0)
+(B0) .. (Lib)
+(app) .. (Lib)
+
+@enduml

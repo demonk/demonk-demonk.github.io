@@ -128,6 +128,83 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-e8-bd-acjava-e7-90-86-e8-ae-ba-e4-b8-8e-e5-ae-9e-e8-b7-b5-e6-ad-a3-e7-a1-ae-e4-bd-bf-e7-94-a8-volatile-e5-8f-98-e9-87-8f" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/22/e8-bd-acjava-e7-90-86-e8-ae-ba-e4-b8-8e-e5-ae-9e-e8-b7-b5-e6-ad-a3-e7-a1-ae-e4-bd-bf-e7-94-a8-volatile-e5-8f-98-e9-87-8f/">[转]Java 理论与实践: 正确使用 Volatile 变量</a>
+    </h1>
+  
+
+        
+        <a href="/2016/10/22/e8-bd-acjava-e7-90-86-e8-ae-ba-e4-b8-8e-e5-ae-9e-e8-b7-b5-e6-ad-a3-e7-a1-ae-e4-bd-bf-e7-94-a8-volatile-e5-8f-98-e9-87-8f/" class="archive-article-date">
+  	<time datetime="2016-10-22T08:38:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>转自 <a href="http://www.ibm.com/developerworks/cn/java/j-jtp06197.html" target="_blank" rel="noopener">http://www.ibm.com/developerworks/cn/java/j-jtp06197.html</a></p>
+<p>Java 语言中的 volatile 变量可以被看作是一种 “程度较轻的 synchronized”；与 synchronized 块相比，volatile 变量所需的编码较少，并且运行时开销也较少，但是它所能实现的功能也仅是 synchronized 的一部分。本文介绍了几种有效使用 volatile 变量的模式，并强调了几种不适合使用 volatile 变量的情形。<br>锁提供了两种主要特性：互斥（mutual exclusion） 和可见性（visibility）。互斥即一次只允许一个线程持有某个特定的锁，因此可使用该特性实现对共享数据的协调访问协议，这样，一次就只有一个线程能够使用该共享数据。可见性要更加复杂一些，它必须确保释放锁之前对共享数据做出的更改对于随后获得该锁的另一个线程是可见的 —— 如果没有同步机制提供的这种可见性保证，线程看到的共享变量可能是修改前的值或不一致的值，这将引发许多严重问题。</p>
+        
+          <a class="article-more-a" href="/2016/10/22/e8-bd-acjava-e7-90-86-e8-ae-ba-e4-b8-8e-e5-ae-9e-e8-b7-b5-e6-ad-a3-e7-a1-ae-e4-bd-bf-e7-94-a8-volatile-e5-8f-98-e9-87-8f/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/10/22/e8-bd-acjava-e7-90-86-e8-ae-ba-e4-b8-8e-e5-ae-9e-e8-b7-b5-e6-ad-a3-e7-a1-ae-e4-bd-bf-e7-94-a8-volatile-e5-8f-98-e9-87-8f/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-010editor-e7-bd-91-e7-bb-9c-e9-aa-8c-e8-af-81-e6-ac-ba-e9-aa-97" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -846,87 +923,6 @@
 
 
   
-    <article id="post-lint-e6-80-bb-e7-bb-93" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/11/lint-e6-80-bb-e7-bb-93/">lint总结</a>
-    </h1>
-  
-
-        
-        <a href="/2016/08/11/lint-e6-80-bb-e7-bb-93/" class="archive-article-date">
-  	<time datetime="2016-08-11T08:49:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-08-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>看了几个lint相关的实现，其实很容易可以看出，lint实现的根本在于继承Detector和实现Scanner方法，而且Detector中已经其实已经实现了所有的Scanner方法，但是都只是空方法，需要覆盖，包括ResourceXmlDetector其实都是一样的。</p>
-<p>对于不同的检查方法，其实只是针对的文件不一样而已，JAVA_FILE针对java文件，RESOURCE_FILE针对资源文件，CLASS_FILE针对class文件，将通过Issue将具体的Detector与scope关联起来。</p>
-        
-          <a class="article-more-a" href="/2016/08/11/lint-e6-80-bb-e7-bb-93/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">lint</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/08/11/lint-e6-80-bb-e7-bb-93/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -941,7 +937,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2020 SamsenLee
+    		&copy; 2021 SamsenLee
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/demonk/hexo-theme-yilia" target="_blank">Yilia</a> fork from Litten
