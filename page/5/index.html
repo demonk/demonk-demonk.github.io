@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://nexus.demonk.cn">
   <title>-NULL-</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -12,9 +12,9 @@
 <meta property="og:title" content="-NULL-">
 <meta property="og:url" content="http://nexus.demonk.cn/page/5/index.html">
 <meta property="og:site_name" content="-NULL-">
-<meta property="og:locale" content="default">
+<meta property="og:locale">
+<meta property="article:author" content="SamsenLee">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="-NULL-">
   
     <link rel="alternative" href="/atom.xml" title="-NULL-" type="application/atom+xml">
   
@@ -32,8 +32,8 @@
 
   
 
-</head>
-</html>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -46,7 +46,7 @@
 			<img src="https://i1.wp.com/raw.githubusercontent.com/demonk/demonk.github.io/master/avatar.png?fit=300%2C300" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="">SamsenLee</a></h1>
+		  <h1 class="header-author"><a href=""></a></h1>
 		</hgroup>
 		
 
@@ -92,7 +92,7 @@
 				<img src="https://i1.wp.com/raw.githubusercontent.com/demonk/demonk.github.io/master/avatar.png?fit=300%2C300" class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author js-header-author">SamsenLee</h1>
+			  <h1 class="header-author js-header-author"></h1>
 			</hgroup>
 			
 			
@@ -127,6 +127,86 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-e9-97-ae-e9-a2-98-volatile-e9-bb-98-e8-ae-a4-e5-80-bc-e9-97-ae-e9-a2-98" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/19/e9-97-ae-e9-a2-98-volatile-e9-bb-98-e8-ae-a4-e5-80-bc-e9-97-ae-e9-a2-98/">[问题] volatile 默认值问题</a>
+    </h1>
+  
+
+        
+        <a href="/2016/08/19/e9-97-ae-e9-a2-98-volatile-e9-bb-98-e8-ae-a4-e5-80-bc-e9-97-ae-e9-a2-98/" class="archive-article-date">
+  	<time datetime="2016-08-19T08:37:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-08-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近项目出了一个线上问题，问题情况是这样子的，我在类CS中声明了一个静态的布尔值A，默认值为false，为了保证主存读取一致，给它加了个volatile的修饰符，当执行时根据此值是否为false去执行初始化操作，然后再将初始化结果返回给A.</p>
+<p>在一般的设备上运行是一切正常的，直到我遇到一台MI PAD2 （ 5.1,x86_64），在这个设备上当我new 好CS类的一个对象后，布尔值神奇的默认值变为true了！</p>
+<p>我继续分析，值变了true是在类实例化时变的，我在类的static中添加了一个输出，类被加载的时候还是为false的，但在构造方法中已经变成了true。当前的解决办法是把volatile移除就没问题了，所以我是怀疑volatile这个修饰符引起了问题。</p>
+<p>后来我通过分析得出了以下重现的条件：<br>1. 类CS需要在非系统classLoader中加载；<br>2. 类CS需要extends或者implements非当前ClassLoader中的类；<br>3. 类CS需要包含volatile的成员；<br>4. 成员变量为boolean，且初始值为false;</p>
+<p>达成以上条件，运行时即可以触发，目前已知以下情况不会引起问题：<br>1. 类当中包含其他ClassLoader已加载的类；<br>2. 其他类型的成员不会引起这样的问题；<br>3. boolean为true则一直为true;<br>4. 实例化时才会触发；<br>5. 在运行过程中将其值设置为与默认值相反的值，都不会影响最后的取值，都为true；<br>6. 类加载过程中静态区初始化时将其值取反，仅会影响到static{}块中的值，实例化时又会被置为true；</p>
+<p>由于volatile属于一个JIT范畴的一个修饰符，但JIT有可能在不同的设备上会进行不同的优化操作，不知是否在这个设备上的JIT是不是出了问题，而且JIT也跟具体的CPU平台有关，会将其转换为汇编指令，所以重现的概率也不大。</p>
+<p><a href="http://www.infoq.com/cn/articles/ftf-java-volatile" target="_blank" rel="noopener">http://www.infoq.com/cn/articles/ftf-java-volatile</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Questions</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/08/19/e9-97-ae-e9-a2-98-volatile-e9-bb-98-e8-ae-a4-e5-80-bc-e9-97-ae-e9-a2-98/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-lint-e6-80-bb-e7-bb-93" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -855,86 +935,9 @@
 
 
   
-    <article id="post-android-e5-8d-95-e5-85-83-e6-b5-8b-e8-af-95" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/31/android-e5-8d-95-e5-85-83-e6-b5-8b-e8-af-95/">Android 单元测试</a>
-    </h1>
-  
-
-        
-        <a href="/2016/07/31/android-e5-8d-95-e5-85-83-e6-b5-8b-e8-af-95/" class="archive-article-date">
-  	<time datetime="2016-07-30T17:26:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>需要解决的问题：<br>1. 像powermock，Robolectric,Mockito的关系是什么，与junit的关系又如何<br>2. 每个框架可以做、不可以做的有哪些<br>3. 如何结合它们进行测试<br>4. 与androidTest的关系</p>
-<p>所有单元测试的框架都基于junit来，使用junit提供的基础服务<br>robolectric 用于模拟android环境的，可以提供在as下运行<br>要使用@RunWith(RobolectricGradleTestRunner.class)声明在类头<br>对于每一个测试类或方法，都可以使用注解 Config 来配置特殊的参数，方法中的配置可以覆盖类头声明的配置，列举如下：<br>1. @Config(constants=BuildConfig.class): 指定一个BuildConfig，一般用于类声明<br>2. @Config(sdk=INT): 声明测试方法中使用的SDK版本<br>3. @Config(application=XXX.class): 声明使用Application</p>
-        
-          <a class="article-more-a" href="/2016/07/31/android-e5-8d-95-e5-85-83-e6-b5-8b-e8-af-95/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">UnitTest</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/07/31/android-e5-8d-95-e5-85-83-e6-b5-8b-e8-af-95/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/4/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/6/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -946,7 +949,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2021 SamsenLee
+    		&copy; 2022 SamsenLee
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/demonk/hexo-theme-yilia" target="_blank">Yilia</a> fork from Litten
@@ -1144,6 +1147,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Travel</a>
               </li>
             
             <div class="clearfix"></div>

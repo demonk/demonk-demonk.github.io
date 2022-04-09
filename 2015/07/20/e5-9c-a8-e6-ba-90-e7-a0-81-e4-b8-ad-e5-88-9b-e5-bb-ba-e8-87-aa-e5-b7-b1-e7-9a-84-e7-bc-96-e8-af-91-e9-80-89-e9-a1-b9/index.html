@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://nexus.demonk.cn">
   <title>在源码中创建自己的编译选项 | -NULL-</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="对于模拟器设备，构建的配置在 build/target/product下，如果需要新建自己的一个构建项，可以按如下操作：1. 编写一个mk文件，如full.mk（可以直接复制一个然后改）2. 对mk内的配置进行修改，修改包括设备名，以及依赖的mk,也可以选择性精简一些需要编译的项（直接注释）3. 生成好后，在AndroidProducts.mk中添加新建mk的路径，以便在lunch的时候可以发现4">
-<meta name="keywords" content="Android">
+  <meta name="description" content="对于模拟器设备，构建的配置在 build&#x2F;target&#x2F;product下，如果需要新建自己的一个构建项，可以按如下操作：1. 编写一个mk文件，如full.mk（可以直接复制一个然后改）2. 对mk内的配置进行修改，修改包括设备名，以及依赖的mk,也可以选择性精简一些需要编译的项（直接注释）3. 生成好后，在AndroidProducts.mk中添加新建mk的路径，以便在lunch的时候可以发现4">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在源码中创建自己的编译选项">
 <meta property="og:url" content="http://nexus.demonk.cn/2015/07/20/e5-9c-a8-e6-ba-90-e7-a0-81-e4-b8-ad-e5-88-9b-e5-bb-ba-e8-87-aa-e5-b7-b1-e7-9a-84-e7-bc-96-e8-af-91-e9-80-89-e9-a1-b9/index.html">
 <meta property="og:site_name" content="-NULL-">
-<meta property="og:description" content="对于模拟器设备，构建的配置在 build/target/product下，如果需要新建自己的一个构建项，可以按如下操作：1. 编写一个mk文件，如full.mk（可以直接复制一个然后改）2. 对mk内的配置进行修改，修改包括设备名，以及依赖的mk,也可以选择性精简一些需要编译的项（直接注释）3. 生成好后，在AndroidProducts.mk中添加新建mk的路径，以便在lunch的时候可以发现4">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-21T12:25:32.000Z">
+<meta property="og:description" content="对于模拟器设备，构建的配置在 build&#x2F;target&#x2F;product下，如果需要新建自己的一个构建项，可以按如下操作：1. 编写一个mk文件，如full.mk（可以直接复制一个然后改）2. 对mk内的配置进行修改，修改包括设备名，以及依赖的mk,也可以选择性精简一些需要编译的项（直接注释）3. 生成好后，在AndroidProducts.mk中添加新建mk的路径，以便在lunch的时候可以发现4">
+<meta property="og:locale">
+<meta property="article:published_time" content="2015-07-20T13:47:39.000Z">
+<meta property="article:modified_time" content="2019-09-21T12:25:32.000Z">
+<meta property="article:author" content="SamsenLee">
+<meta property="article:tag" content="Android">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在源码中创建自己的编译选项">
-<meta name="twitter:description" content="对于模拟器设备，构建的配置在 build/target/product下，如果需要新建自己的一个构建项，可以按如下操作：1. 编写一个mk文件，如full.mk（可以直接复制一个然后改）2. 对mk内的配置进行修改，修改包括设备名，以及依赖的mk,也可以选择性精简一些需要编译的项（直接注释）3. 生成好后，在AndroidProducts.mk中添加新建mk的路径，以便在lunch的时候可以发现4">
   
     <link rel="alternative" href="/atom.xml" title="-NULL-" type="application/atom+xml">
   
@@ -37,8 +37,8 @@
 
   
 
-</head>
-</html>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -51,7 +51,7 @@
 			<img src="https://i1.wp.com/raw.githubusercontent.com/demonk/demonk.github.io/master/avatar.png?fit=300%2C300" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="">SamsenLee</a></h1>
+		  <h1 class="header-author"><a href=""></a></h1>
 		</hgroup>
 		
 
@@ -97,7 +97,7 @@
 				<img src="https://i1.wp.com/raw.githubusercontent.com/demonk/demonk.github.io/master/avatar.png?fit=300%2C300" class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author js-header-author">SamsenLee</h1>
+			  <h1 class="header-author js-header-author"></h1>
 			</hgroup>
 			
 			
@@ -295,7 +295,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2021 SamsenLee
+    		&copy; 2022 SamsenLee
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/demonk/hexo-theme-yilia" target="_blank">Yilia</a> fork from Litten
@@ -493,6 +493,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Travel</a>
               </li>
             
             <div class="clearfix"></div>
